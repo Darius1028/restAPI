@@ -1,8 +1,25 @@
 import Company from './../models/company.js';
+import { querySerch, querySelect } from './commons.js';
+
+const fields = ['name', 'address', 'logo', 'isActive'];
 
 export const findAllCompanies = async (req, res) => {
-  const companies = await Company.find();
-  res.json(companies);
+  try {
+    const companies = await Company.find();
+    res.json(companies);
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'error list User' });
+  }
+}
+
+export const filterCompanies = async (req, res) => {
+  try {
+    const { select, ...filters } = req.query;
+    const companies = await Company.find(querySerch(filters, fields), querySelect(select));
+    res.json(companies);
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'error find User' });
+  }
 }
 
 export const createCompany = async (req, res) => {

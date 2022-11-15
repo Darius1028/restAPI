@@ -1,8 +1,25 @@
 import User from './../models/user.js';
+import { querySerch, querySelect } from './commons.js';
+
+const fields = ['phone', 'firstName', 'lastName', 'isActive', 'address'];
 
 export const findAllUsers = async (req, res) => {
-  const users = await User.find();
-  res.json(users);
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'error find User' });
+  }
+}
+
+export const filterUsers = async (req, res) => {
+  try {
+    const { select, ...filters } = req.query;
+    const users = await User.find(querySerch(filters, fields), querySelect(select));
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'error find User' });
+  }
 }
 
 export const createUser = async (req, res) => {
@@ -29,7 +46,6 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ message: error.message || 'error update User' });
   }
 }
-
 
 export const findOneUser = async (req, res) => {
   try {

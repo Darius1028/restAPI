@@ -12,6 +12,7 @@ RESTful API based.
 ### User
 - GET /api/users => list User
 - GET /api/users/:id => One User
+- GET /api/users/filter?query => (?select=lastName&phone=8974) filter User
 - POST /api/users => Create User
 - PUT /api/users => Update User
 - Delete /api/users => Delete User
@@ -19,6 +20,7 @@ RESTful API based.
 ### Company
 - GET /api/companies => list Company
 - GET /api/companies/:id => One Company
+- GET /api/companies/filter?query => (?select=name&name=data) filter Company
 - POST /api/companies => Create Company
 - PUT /api/companies => Update Company
 - Delete /api/companies => Delete Company
